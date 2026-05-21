@@ -5,6 +5,7 @@
 #include <test_c.h>
 #include <test_p.h>
 #include <test_back.h>
+#include <test_pass3.h>
 // iomapip包含setw(12)，可以保持输出为12个字符宽度，可以对齐输出
 
 const data_t PI = 3.14159265358979323846f;
@@ -104,6 +105,10 @@ int main()
     data_t I_a[DOF][6][6];
     data_t p_a[DOF][6];
 
+    data_t a_s[DOF][6];
+    data_t a_a[DOF][6];
+    data_t ddq[DOF];
+
     // 调用函数
     cal_R(alpha, a, d, q, T, R, R_Trans, P);
 
@@ -123,6 +128,9 @@ int main()
 
     // 逆推
     back_pass(I_spa,p,tau,c,X_lam,I_A,p_A,U,D,u,I_a,p_a);
+
+    // 正推
+    tip_pass3(X_lam,c,D,u,U,a_s,a_a,ddq);
 
     // 输出结果
     for (int i = 0; i < DOF; i++)
@@ -258,101 +266,10 @@ int main()
         std::cout << std::setw(12) << P[i][1] << std::endl;
         std::cout << std::setw(12) << P[i][2] << std::endl;
 
+        std::cout << "ddq[" << i << "] =" << std::endl;
+        std::cout << std::setw(12) << ddq[i]<< " ";
+        std::cout << std::endl;
+
         std::cout << std::endl;
     }
 }
-
-// int main()
-// {
-//     const data_t PI = 3.14159265358979323846f;
-
-//     // 定义 MDH 参数
-//     data_t alpha[DOF] = {
-//         0.0f,
-//         PI / 2.0f,
-//         0.0f
-//     };
-
-//     data_t a[DOF] = {
-//         0.3f,
-//         0.2f,
-//         0.1f
-//     };
-
-//     data_t d[DOF] = {
-//         0.1f,
-//         0.0f,
-//         0.0f
-//     };
-
-//     // 关节角，单位是弧度
-//     data_t q[DOF] = {
-//         30.0f * PI / 180.0f,
-//         45.0f * PI / 180.0f,
-//         60.0f * PI / 180.0f
-//     };
-
-//     // 定义输出数组
-//     data_t T[DOF][4][4];
-//     data_t R[DOF][3][3];
-//     data_t R_Trans[DOF][3][3];
-//     data_t P[DOF][3];
-
-//     // 调用函数
-//     cal_R(alpha, a, d, q, T, R, R_Trans, P);
-
-//     // 设置输出格式
-//     std::cout << std::fixed << std::setprecision(6);
-
-//     // 输出结果
-//     for (int i = 0; i < DOF; i++)
-//     {
-//         std::cout << "==============================" << std::endl;
-//         std::cout << "Joint " << i + 1 << std::endl;
-
-//         std::cout << "T[" << i << "] =" << std::endl;
-//         for (int r = 0; r < 4; r++)
-//         {
-//             for (int c = 0; c < 4; c++)
-//             {
-//                 std::cout << std::setw(12) << T[i][r][c] << " ";
-//             }
-//             std::cout << std::endl;
-//         }
-
-//         std::cout << std::endl;
-
-//         std::cout << "R[" << i << "] =" << std::endl;
-//         for (int r = 0; r < 3; r++)
-//         {
-//             for (int c = 0; c < 3; c++)
-//             {
-//                 std::cout << std::setw(12) << R[i][r][c] << " ";
-//             }
-//             std::cout << std::endl;
-//         }
-
-//         std::cout << std::endl;
-
-//         std::cout << "R_Trans[" << i << "] =" << std::endl;
-//         for (int r = 0; r < 3; r++)
-//         {
-//             for (int c = 0; c < 3; c++)
-//             {
-//                 std::cout << std::setw(12) << R_Trans[i][r][c] << " ";
-//             }
-//             std::cout << std::endl;
-//         }
-
-//         std::cout << std::endl;
-
-//         std::cout << "P[" << i << "] =" << std::endl;
-//         std::cout << std::setw(12) << P[i][0] << std::endl;
-//         std::cout << std::setw(12) << P[i][1] << std::endl;
-//         std::cout << std::setw(12) << P[i][2] << std::endl;
-
-//         std::cout << std::endl;
-//     }
-
-//     return 0;
-// }
