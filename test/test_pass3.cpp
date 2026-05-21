@@ -14,7 +14,7 @@ void tip_pass3(
 )
 {
     data_t S[6] = {0, 0, 1, 0, 0, 0};
-    data_t a_parent[6] = {0, 0, 0, 0, 0, 0};
+    data_t a_parent[6] = {0, 0, 0, 0, 0, 9.81};
 
     for(int i = 0;i<DOF;i++)
     {

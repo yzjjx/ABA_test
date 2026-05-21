@@ -31,7 +31,7 @@ target_compile_definitions(ABA_test PRIVATE
 )
 
 # 加入pinocchio对比的可执行文件
-# add_executable(com_with_pinocchio Com_with_pinocchio/com_with_pinocchio.cpp)
+add_executable(com_with_pinocchio Com_with_pinocchio/com_with_pinocchio.cpp)
 
-# # 链接 pinocchio 库
-# target_link_libraries(com_with_pinocchio PRIVATE pinocchio::pinocchio)
+# 链接 pinocchio 库
+target_link_libraries(com_with_pinocchio PRIVATE pinocchio::pinocchio)

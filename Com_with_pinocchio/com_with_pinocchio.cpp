@@ -15,7 +15,7 @@ int main()
 
     // 假设未定义重力（根据你的原始代码无重力参数推断）
     // 如果你的算法包含了标准重力补偿，请注释掉这一行，Pinocchio默认是 (0, 0, -9.81)
-    model.gravity.setZero(); 
+    // model.gravity.setZero(); 
 
     // 2. MDH参数定义与关节添加
     // 关节 1 (从基座开始)
