@@ -87,6 +87,7 @@ int main()
 
     data_t I_spa[DOF][6][6];
     data_t h[DOF][6];
+    data_t p[DOF][6];
 
     // 调用函数
     cal_R(alpha, a, d, q, T, R, R_Trans, P);
@@ -103,6 +104,7 @@ int main()
     // 计算h
     I_space(mass,c_of_mass,I,I_spa);
     h_fina(alpha,a,d,q,dq,X_lam,mass,c_of_mass,I,I_spa,v,h);
+    p_fina(v,h,p);
 
 
     // 输出结果
@@ -180,6 +182,14 @@ int main()
         for (int r = 0; r < 6; r++)
         {
             std::cout << std::setw(12) << h[i][r] << " ";
+            std::cout << std::endl;
+        }
+
+
+        std::cout << "p[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            std::cout << std::setw(12) << p[i][r] << " ";
             std::cout << std::endl;
         }
 
