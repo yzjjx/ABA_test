@@ -4,6 +4,7 @@
 #include <test_v_ori.h>
 #include <test_c.h>
 #include <test_p.h>
+#include <test_back.h>
 // iomapip包含setw(12)，可以保持输出为12个字符宽度，可以对齐输出
 
 const data_t PI = 3.14159265358979323846f;
@@ -72,6 +73,12 @@ int main()
         {0.125,0,0}
     };
 
+    data_t tau[DOF] = {
+        0,
+        0,
+        0
+    };
+
     // 定义输出数组
     data_t T[DOF][4][4];
     data_t R[DOF][3][3];
@@ -88,6 +95,14 @@ int main()
     data_t I_spa[DOF][6][6];
     data_t h[DOF][6];
     data_t p[DOF][6];
+
+    data_t I_A[DOF][6][6];
+    data_t p_A[DOF][6];
+    data_t U[DOF][6];
+    data_t D[DOF];
+    data_t u[DOF];
+    data_t I_a[DOF][6][6];
+    data_t p_a[DOF][6];
 
     // 调用函数
     cal_R(alpha, a, d, q, T, R, R_Trans, P);
@@ -106,6 +121,8 @@ int main()
     h_fina(alpha,a,d,q,dq,X_lam,mass,c_of_mass,I,I_spa,v,h);
     p_fina(v,h,p);
 
+    // 逆推
+    back_pass(I_spa,p,tau,c,X_lam,I_A,p_A,U,D,u,I_a,p_a);
 
     // 输出结果
     for (int i = 0; i < DOF; i++)
@@ -190,6 +207,47 @@ int main()
         for (int r = 0; r < 6; r++)
         {
             std::cout << std::setw(12) << p[i][r] << " ";
+            std::cout << std::endl;
+        }
+
+        std::cout << "I_A[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            for (int c = 0; c < 6; c++)
+            {
+                std::cout << std::setw(12) << I_A[i][r][c] << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        std::cout << "I_a[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            for (int c = 0; c < 6; c++)
+            {
+                std::cout << std::setw(12) << I_a[i][r][c] << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        std::cout << "p_a[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            std::cout << std::setw(12) << p_a[i][r] << " ";
+            std::cout << std::endl;
+        }
+
+        std::cout << "p_A[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            std::cout << std::setw(12) << p_A[i][r] << " ";
+            std::cout << std::endl;
+        }
+
+        std::cout << "U[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            std::cout << std::setw(12) << U[i][r] << " ";
             std::cout << std::endl;
         }
 

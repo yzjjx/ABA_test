@@ -14,6 +14,7 @@ add_executable(ABA_test
     test/test_v_ori.cpp
     test/test_c.cpp
     test/test_p.cpp
+    test/test_back.cpp
 )
 
 target_link_libraries(ABA_test PRIVATE
