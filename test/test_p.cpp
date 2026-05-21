@@ -1,5 +1,6 @@
 #include <cmath>
 #include <test_c.h>
+#include <test_v_ori.h>
 
 // 因为在test_T_R_out已经定义，下面不再定义
 // typedef float data_t;
@@ -72,15 +73,15 @@ void I_space(
     {
         corr_1_1[i][0][0] = c_of_mass_cross[i][0][0]*c_of_mass_cross[i][0][0] + c_of_mass_cross[i][0][1]*c_of_mass_cross[i][0][1] + c_of_mass_cross[i][0][2]*c_of_mass_cross[i][0][2];
         corr_1_1[i][0][1] = c_of_mass_cross[i][0][0]*c_of_mass_cross[i][1][0] + c_of_mass_cross[i][0][1]*c_of_mass_cross[i][1][1] + c_of_mass_cross[i][0][2]*c_of_mass_cross[i][1][2];
-        corr_1_1[i][0][2] = c_of_mass_cross[i][0][0]*c_of_mass_cross[i][0][0] + c_of_mass_cross[i][0][1]*c_of_mass_cross[i][0][1] + c_of_mass_cross[i][0][2]*c_of_mass_cross[i][2][2];
+        corr_1_1[i][0][2] = c_of_mass_cross[i][0][0]*c_of_mass_cross[i][2][0] + c_of_mass_cross[i][0][1]*c_of_mass_cross[i][2][1] + c_of_mass_cross[i][0][2]*c_of_mass_cross[i][2][2];
 
         corr_1_1[i][1][0] = c_of_mass_cross[i][1][0]*c_of_mass_cross[i][0][0] + c_of_mass_cross[i][1][1]*c_of_mass_cross[i][0][1] + c_of_mass_cross[i][1][2]*c_of_mass_cross[i][0][2];
         corr_1_1[i][1][1] = c_of_mass_cross[i][1][0]*c_of_mass_cross[i][1][0] + c_of_mass_cross[i][1][1]*c_of_mass_cross[i][1][1] + c_of_mass_cross[i][1][2]*c_of_mass_cross[i][1][2];
-        corr_1_1[i][1][2] = c_of_mass_cross[i][1][0]*c_of_mass_cross[i][0][0] + c_of_mass_cross[i][1][1]*c_of_mass_cross[i][0][1] + c_of_mass_cross[i][1][2]*c_of_mass_cross[i][2][2];
+        corr_1_1[i][1][2] = c_of_mass_cross[i][1][0]*c_of_mass_cross[i][2][0] + c_of_mass_cross[i][1][1]*c_of_mass_cross[i][2][1] + c_of_mass_cross[i][1][2]*c_of_mass_cross[i][2][2];
 
         corr_1_1[i][2][0] = c_of_mass_cross[i][2][0]*c_of_mass_cross[i][0][0] + c_of_mass_cross[i][2][1]*c_of_mass_cross[i][0][1] + c_of_mass_cross[i][2][2]*c_of_mass_cross[i][0][2];
         corr_1_1[i][2][1] = c_of_mass_cross[i][2][0]*c_of_mass_cross[i][1][0] + c_of_mass_cross[i][2][1]*c_of_mass_cross[i][1][1] + c_of_mass_cross[i][2][2]*c_of_mass_cross[i][1][2];
-        corr_1_1[i][2][2] = c_of_mass_cross[i][2][0]*c_of_mass_cross[i][0][0] + c_of_mass_cross[i][2][1]*c_of_mass_cross[i][0][1] + c_of_mass_cross[i][2][2]*c_of_mass_cross[i][2][2];
+        corr_1_1[i][2][2] = c_of_mass_cross[i][2][0]*c_of_mass_cross[i][2][0] + c_of_mass_cross[i][2][1]*c_of_mass_cross[i][2][1] + c_of_mass_cross[i][2][2]*c_of_mass_cross[i][2][2];
 
 
         corr_1_1[i][0][0] = mass[i]*corr_1_1[i][0][0];
@@ -195,4 +196,70 @@ void I_space(
     
 }
 
-// 空间动量计算
+// 空间动量(h)计算
+// 计算空间惯量矩阵
+void h_fina(
+    const data_t alpha[DOF],
+    const data_t a[DOF],
+    const data_t d[DOF],
+    const data_t q[DOF],
+    const data_t dq[DOF],
+    data_t X_lam[DOF][6][6],
+
+    data_t mass[DOF],
+    data_t c_of_mass[DOF][3],
+    data_t I[DOF][9],//行展开矩阵
+    data_t I_spa[DOF][6][6],
+    data_t v[DOF][6],
+    data_t h[DOF][6]
+)
+{
+    I_space(mass,c_of_mass,I,I_spa);
+    v_fina(alpha,a,d,q,dq,X_lam,v);
+
+    for (int i = 0; i < DOF; i++)
+    {
+        h[i][0] = I_spa[i][0][0]*v[i][0]+
+                  I_spa[i][0][1]*v[i][1]+
+                  I_spa[i][0][2]*v[i][2]+
+                  I_spa[i][0][3]*v[i][3]+
+                  I_spa[i][0][4]*v[i][4]+
+                  I_spa[i][0][5]*v[i][5];
+
+        h[i][1] = I_spa[i][1][0]*v[i][0]+
+                  I_spa[i][1][1]*v[i][1]+
+                  I_spa[i][1][2]*v[i][2]+
+                  I_spa[i][1][3]*v[i][3]+
+                  I_spa[i][1][4]*v[i][4]+
+                  I_spa[i][1][5]*v[i][5];
+
+        h[i][2] = I_spa[i][2][0]*v[i][0]+
+                  I_spa[i][2][1]*v[i][1]+
+                  I_spa[i][2][2]*v[i][2]+
+                  I_spa[i][2][3]*v[i][3]+
+                  I_spa[i][2][4]*v[i][4]+
+                  I_spa[i][2][5]*v[i][5];
+
+        h[i][3] = I_spa[i][3][0]*v[i][0]+
+                  I_spa[i][3][1]*v[i][1]+
+                  I_spa[i][3][2]*v[i][2]+
+                  I_spa[i][3][3]*v[i][3]+
+                  I_spa[i][3][4]*v[i][4]+
+                  I_spa[i][3][5]*v[i][5];
+
+        h[i][4] = I_spa[i][4][0]*v[i][0]+
+                  I_spa[i][4][1]*v[i][1]+
+                  I_spa[i][4][2]*v[i][2]+
+                  I_spa[i][4][3]*v[i][3]+
+                  I_spa[i][4][4]*v[i][4]+
+                  I_spa[i][4][5]*v[i][5];
+
+        h[i][5] = I_spa[i][5][0]*v[i][0]+
+                  I_spa[i][5][1]*v[i][1]+
+                  I_spa[i][5][2]*v[i][2]+
+                  I_spa[i][5][3]*v[i][3]+
+                  I_spa[i][5][4]*v[i][4]+
+                  I_spa[i][5][5]*v[i][5];
+    }
+    
+}

@@ -13,6 +13,7 @@ add_executable(ABA_test
     test/test_T_R_out.cpp
     test/test_v_ori.cpp
     test/test_c.cpp
+    test/test_p.cpp
 )
 
 target_link_libraries(ABA_test PRIVATE

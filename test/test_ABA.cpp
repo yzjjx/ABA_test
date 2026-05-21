@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <test_v_ori.h>
 #include <test_c.h>
+#include <test_p.h>
 // iomapip包含setw(12)，可以保持输出为12个字符宽度，可以对齐输出
 
 const data_t PI = 3.14159265358979323846f;
@@ -42,6 +43,35 @@ int main()
         0.6
     };
 
+    // 惯性张量（按 3x3 行优先展开）
+    data_t I[DOF][9] = {
+        {
+            0.022745,   0,          0,
+            0,          0.022745,   0,
+            0,          0,          0.00175
+        },
+        {
+            0.000054,  0,          0,
+            0,         0.012366,   0,
+            0,         0,          0.012488
+        },
+        {
+            0.000222,   0,          0,
+            0,          0.005018,   0,
+            0,          0,          0.005048
+        }
+    };
+    data_t mass[DOF] = {
+        {2.916},
+        {1.620},
+        {0.945}
+    };
+    data_t c_of_mass[DOF][3] = {
+        {0,0,-0.15},
+        {0.15,0,0},
+        {0.125,0,0}
+    };
+
     // 定义输出数组
     data_t T[DOF][4][4];
     data_t R[DOF][3][3];
@@ -55,6 +85,9 @@ int main()
 
     data_t c[DOF][6];
 
+    data_t I_spa[DOF][6][6];
+    data_t h[DOF][6];
+
     // 调用函数
     cal_R(alpha, a, d, q, T, R, R_Trans, P);
 
@@ -66,6 +99,10 @@ int main()
 
     // 计算c
     c_fina(v,v_J,c);
+
+    // 计算h
+    I_space(mass,c_of_mass,I,I_spa);
+    h_fina(alpha,a,d,q,dq,X_lam,mass,c_of_mass,I,I_spa,v,h);
 
 
     // 输出结果
@@ -126,6 +163,23 @@ int main()
         for (int r = 0; r < 6; r++)
         {
             std::cout << std::setw(12) << c[i][r] << " ";
+            std::cout << std::endl;
+        }
+
+        std::cout << "I_spa[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            for (int c = 0; c < 6; c++)
+            {
+                std::cout << std::setw(12) << I_spa[i][r][c] << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        std::cout << "h[" << i << "] =" << std::endl;
+        for (int r = 0; r < 6; r++)
+        {
+            std::cout << std::setw(12) << h[i][r] << " ";
             std::cout << std::endl;
         }
 
