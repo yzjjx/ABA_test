@@ -1,3 +1,13 @@
+/**
+ * @file test_c.cpp
+ * @brief 用于实现书本的pass1的公式五
+ *
+ *
+ * @author YZJ
+ * @date 2026-05-18
+ * @version t0.1
+ */
+
 #include <cmath>
 #include <test_v_ori.h>
 

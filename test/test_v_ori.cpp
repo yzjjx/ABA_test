@@ -1,3 +1,13 @@
+/**
+ * @file test_v_ori.cpp
+ * @brief 用于实现速度的前向递推计算，主要到书本的pass1的公式四
+ *
+ *
+ * @author YZJ
+ * @date 2026-05-18
+ * @version t0.1
+ */
+
 #include <cmath>
 #include <test_T_R_out.h>
 
