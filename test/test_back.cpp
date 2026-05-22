@@ -1,3 +1,13 @@
+/**
+ * @file test_back.cpp
+ * @brief 用于实现书本pass2后向递推过程
+ *
+ *
+ * @author YZJ
+ * @date 2026-05-20
+ * @version t0.1
+ */
+
 #include <cmath>
 #include <test_v_ori.h>
 #include <test_p.h>

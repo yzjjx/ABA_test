@@ -1,3 +1,13 @@
+/**
+ * @file test_pass3.cpp
+ * @brief 用于实现书本pass3前向递推过程
+ *
+ *
+ * @author YZJ
+ * @date 2026-05-22
+ * @version t0.1
+ */
+
 #include <cmath>
 #include <test_v_ori.h>
 #include <test_p.h>
