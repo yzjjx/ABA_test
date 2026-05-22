@@ -19,7 +19,6 @@ S_i=\begin{bmatrix}0
  \\0
  \\0
  \\0
-
 \end{bmatrix}
 $$
 
@@ -34,7 +33,6 @@ S_i=\begin{bmatrix}0
  \\0
  \\0
  \\1
-
 \end{bmatrix}
 $$
 
@@ -49,7 +47,6 @@ S_i=\begin{bmatrix}0
  \\0
  \\0
  \\0
-
 \end{bmatrix}
 $$
 
@@ -94,7 +91,6 @@ $$
 p_1 = \begin{bmatrix}p_{1x}
  \\p_{1y}
  \\p_{1z}
-
 \end{bmatrix}
 $$
 
@@ -115,7 +111,6 @@ $$
 \begin{bmatrix}x
  \\y
  \\z
-
 \end{bmatrix}\times =\begin{bmatrix}
  0 & -z & y\\
 z  & 0 & -x\\
@@ -156,7 +151,6 @@ v=\begin{bmatrix}\omega_x
  \\v_x
  \\v_y
  \\v_z
-
 \end{bmatrix}=\begin{bmatrix}\omega
  \\v_o
 
@@ -219,7 +213,6 @@ $$
 c_1=\begin{bmatrix}0
  \\0
  \\-0.15
-
 \end{bmatrix}
 $$
 
@@ -294,7 +287,6 @@ S_i=\begin{bmatrix}0
  \\0
  \\0
  \\0
-
 \end{bmatrix}
 $$
 
