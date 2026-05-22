@@ -9,9 +9,7 @@
  */
 
 #include <cmath>
-
-typedef float data_t;
-const int DOF = 6;
+#include <test_T_R_out.h>
 
 // 为了防止命名冲突，可以加入std::cos
 // 用下面void编程方式就不用这里先定义

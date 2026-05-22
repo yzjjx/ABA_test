@@ -11,7 +11,7 @@ find_package(Eigen3 REQUIRED)
 
 add_executable(ABA_test 
     # test/test_ABA_3_axis.cpp
-    # 该版本需要在T_R_out.h与T_R_out.cpp中同时修改DOF
+    # 该版本需要在T_R_out.h中修改DOF
     test/test_ABA_6_axis.cpp
     # test/test_ABA.cpp
     test/test_T_R_out.cpp
