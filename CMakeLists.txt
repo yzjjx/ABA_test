@@ -10,13 +10,17 @@ find_package(pinocchio REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 add_executable(ABA_test 
-    test/test_ABA.cpp
+    # test/test_ABA_3_axis.cpp
+    # 该版本需要在T_R_out.h与T_R_out.cpp中同时修改DOF
+    test/test_ABA_6_axis.cpp
+    # test/test_ABA.cpp
     test/test_T_R_out.cpp
     test/test_v_ori.cpp
     test/test_c.cpp
     test/test_p.cpp
     test/test_back.cpp
     test/test_pass3.cpp
+    test/test_ABA_final.cpp
 )
 
 target_link_libraries(ABA_test PRIVATE
@@ -31,7 +35,12 @@ target_compile_definitions(ABA_test PRIVATE
 )
 
 # 加入pinocchio对比的可执行文件
-add_executable(com_with_pinocchio Com_with_pinocchio/com_with_pinocchio.cpp)
+add_executable(com_with_pinocchio 
+    # 3轴验证计算
+    # Com_with_pinocchio/com_with_pinocchio.cpp
+    # 6轴验证计算
+    Com_with_pinocchio/com_with_pinocchio_6axis.cpp
+)
 
 # 链接 pinocchio 库
 target_link_libraries(com_with_pinocchio PRIVATE pinocchio::pinocchio)

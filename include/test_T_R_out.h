@@ -4,7 +4,7 @@
 #include <cmath>
 
 typedef float data_t;
-const int DOF = 3;
+const int DOF = 6;
 
 void cal_R(
     const data_t alpha[DOF],
